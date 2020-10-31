@@ -1,0 +1,1 @@
+# EveryEuro Budgeting App
