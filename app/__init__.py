@@ -9,4 +9,6 @@ db = SQLAlchemy(app)
 
 from app import routes
 
+from app.budgets import models
+
 db.create_all()
