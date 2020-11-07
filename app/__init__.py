@@ -7,7 +7,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///budgets.db"
 app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 
-from app import routes
+from app import routes # all routes via this file
 
 from app.budgets import models
 

@@ -1,25 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<h3>January</h3><br />
 
-  <h3>January</h3><br />
+<form method="POST" action="{{ url_for('create_jan', salary=salary, rent=rent) }}">
   <table border="1">
     <tr>
-      <td>Income</td>
-      <td><input type="number" /></td>
+      <th>Item</th>
+      <th><center>Amount</center></th>
+    </tr>
+    <tr>
+      <td>Salary</td>
+      <td width="100"><input type="number" name="salary"/></td>
     </tr>
     <tr>
       <td>Rent</td>
-      <td><input type="number" /></td>
+      <td width="100"><input type="number" name="rent"/></td>
     </tr>
   </table>
 
-  <br /><br />
+  <br/><br/>
+  <input type="submit" value="Count monthly balance"/>
   <table border="1">
-    <tr>
-      <td>Balance</td>
-      <td><input type="number" /></td>
-    </tr>
+    <tr><td>Balance</td>
+        <td><input type="number" name="balance"/></td></tr>
   </table>
+</form>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, request
 from app import app
 
 @app.route("/")
@@ -15,4 +15,14 @@ def overview():
 
 @app.route("/app/jan")
 def jan():
+    return render_template("app/jan.html")
+
+@app.route("/app/jan/create", methods=["POST"])
+def create_jan():
+    salary = request.form.get("salary")
+    rent = request.form.get("rent")
+    balance = int(salary)-int(rent)
+    print("*****Salary : ", request.form.get("salary"))
+    print("*****Rent   : ", request.form.get("rent"))
+    print("*****Balance: ", balance)
     return render_template("app/jan.html")
