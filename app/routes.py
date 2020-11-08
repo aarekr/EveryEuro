@@ -1,5 +1,6 @@
-from flask import render_template, request
-from app import app
+from flask import render_template, request, redirect, url_for
+from app import app, db
+from app.budgets.models import Budget
 
 @app.route("/")
 def index():
@@ -11,7 +12,7 @@ def app_page():
 
 @app.route("/app/overview")
 def overview():
-    return render_template("app/overview.html")
+    return render_template("app/overview.html", all_months = Budget.query.all())
 
 @app.route("/app/jan")
 def jan():
@@ -19,10 +20,15 @@ def jan():
 
 @app.route("/app/jan/create", methods=["POST"])
 def create_jan():
-    salary = request.form.get("salary")
-    rent = request.form.get("rent")
-    balance = int(salary)-int(rent)
-    print("*****Salary : ", request.form.get("salary"))
-    print("*****Rent   : ", request.form.get("rent"))
+    salary = int(request.form.get("salary"))
+    rent = int(request.form.get("rent"))
+    balance = salary-rent
+    print("*****Salary : ", salary)
+    print("*****Rent   : ", rent)
     print("*****Balance: ", balance)
-    return render_template("app/jan.html")
+
+    month = Budget("Jan", salary, rent)
+    db.session().add(month)
+    db.session().commit()
+
+    return redirect(url_for("app/jan.html"))

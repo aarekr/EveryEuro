@@ -4,10 +4,18 @@
 
   <h3 align="center">Overview</h3>
 
+  {% if all_months is defined %}
+    defined, {{ all_months }}
+  {% endif %}
+  <br />
+  {% for month in all_months %}
+    {{ month.month }} {{ month.salary }}
+  {% endfor %}
+
   <table align="center" border="1">
     <tr>
       <th>Month</th>
-      <th>Income</th>
+      <th>Salary</th>
       <th>Expenses</th>
       <th>Savings</th>
     </tr>
