@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
 from app.budgets.models import Budget
+from app.budgets.forms import BudgetForm
 
 @app.route("/")
 def index():
@@ -16,7 +17,7 @@ def overview():
 
 @app.route("/app/jan")
 def jan():
-    return render_template("app/jan.html")
+    return render_template("app/jan.html", form=BudgetForm())
 
 @app.route("/app/jan/create", methods=["POST"])
 def create_jan():
@@ -31,4 +32,4 @@ def create_jan():
     db.session().add(month)
     db.session().commit()
 
-    return redirect(url_for("app/jan.html"))
+    return redirect(url_for("jan"))

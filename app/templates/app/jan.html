@@ -5,6 +5,7 @@
 
 <form method="POST" action="{{ url_for('create_jan', salary=salary, rent=rent) }}">
   <table border="1">
+    old form
     <tr>
       <th>Item</th>
       <th><center>Amount</center></th>
@@ -17,9 +18,25 @@
       <td>Rent</td>
       <td width="100"><input type="number" name="rent"/></td>
     </tr>
+    <input type="submit" value="Count monthly balance"/>
+  </table>
+</form>
+
+<br /><br /><br /><br />
+new form using BudgetForm
+<form method="POST" action="{{ url_for('create_jan') }}">
+  <table border="1">
+    <tr>
+      <td>{{ form.salary.label }}</td>
+      <td width="100"><input type="number" name="salary"/></td>
+    </tr>
+    <tr>
+      <td>{{ form.mortgagerent.label }}</td>
+      <td width="100"><input type="number" name="rent"/></td>
+    </tr>
   </table>
 
-  <br/><br/>
+  <br/>
   <input type="submit" value="Count monthly balance"/>
   <table border="1">
     <tr><td>Balance</td>
