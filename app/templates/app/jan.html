@@ -29,6 +29,10 @@ new form using BudgetForm
     <tr>
       <td>{{ form.salary.label }}</td>
       <td width="100"><input type="number" name="salary"/></td>
+      <td>{% for error in form.salary.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+      </td>
     </tr>
     <tr>
       <td>{{ form.mortgagerent.label }}</td>
@@ -36,12 +40,31 @@ new form using BudgetForm
     </tr>
   </table>
 
+  {% if all_months is defined %}
+    defined, {{ all_months }}
+  {% endif %}
+  <br />
+  {% for month in all_months %}
+    {{ month.month }} {{ month.salary }} {{ month.mortgagerent }} {{ month.balance }}
+  {% endfor %}
+
+
   <br/>
   <input type="submit" value="Count monthly balance"/>
+  <br /><br />
   <table border="1">
+  {% for month in all_months %}
+    <tr><th>Item</th>
+        <th><center>Amount</center></th></tr>
+    <tr><td>Salary</td>
+        <td align="right">{{ month.salary }}</td></tr>
+    <tr><td>Mortgage/rent</td>
+        <td align="right">{{ month.mortgagerent }}</td></tr>
     <tr><td>Balance</td>
-        <td><input type="number" name="balance"/></td></tr>
+        <td align="right">{{ month.balance }}</td></tr>
+  {% endfor %}
   </table>
 </form>
 
+<br /><hr /><br />
 {% endblock %}

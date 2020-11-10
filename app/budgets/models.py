@@ -9,8 +9,10 @@ class Budget(db.Model):
     month = db.Column(db.String(144), nullable=False)
     salary = db.Column(db.Integer, nullable=False)
     mortgagerent = db.Column(db.Integer, nullable=False)
+    balance = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, month, salary, mortgagerent):
+    def __init__(self, month, salary, mortgagerent, balance):
         self.month = month
         self.salary = salary
         self.mortgagerent = mortgagerent
+        self.balance = balance
