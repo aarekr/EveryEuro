@@ -3,40 +3,29 @@
 {% block body %}
 <h3>January</h3><br />
 
-<form method="POST" action="{{ url_for('create_jan', salary=salary, rent=rent) }}">
-  <table border="1">
-    old form
-    <tr>
-      <th>Item</th>
-      <th><center>Amount</center></th>
-    </tr>
-    <tr>
-      <td>Salary</td>
-      <td width="100"><input type="number" name="salary"/></td>
-    </tr>
-    <tr>
-      <td>Rent</td>
-      <td width="100"><input type="number" name="rent"/></td>
-    </tr>
-    <input type="submit" value="Count monthly balance"/>
-  </table>
-</form>
-
-<br /><br /><br /><br />
 new form using BudgetForm
 <form method="POST" action="{{ url_for('create_jan') }}">
-  <table border="1">
+  <table>
+    {{ form.month.label }}
     <tr>
       <td>{{ form.salary.label }}</td>
-      <td width="100"><input type="number" name="salary"/></td>
-      <td>{% for error in form.salary.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
+      <td>{{ form.salary }}</td>
+      <td>
+        <ul>{% for error in form.salary.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
       </td>
     </tr>
     <tr>
       <td>{{ form.mortgagerent.label }}</td>
-      <td width="100"><input type="number" name="rent"/></td>
+      <td>{{ form.mortgagerent }}</td>
+      <td>
+        <ul>{% for error in form.mortgagerent.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+      </td>
     </tr>
   </table>
 
@@ -45,13 +34,14 @@ new form using BudgetForm
   {% endif %}
   <br />
   {% for month in all_months %}
-    {{ month.month }} {{ month.salary }} {{ month.mortgagerent }} {{ month.balance }}
+    {{ month.month }} {{ month.salary }} {{ month.mortgagerent }} {{ month.balance }} <br />
   {% endfor %}
 
 
   <br/>
   <input type="submit" value="Count monthly balance"/>
   <br /><br />
+<!-- summary and reporting part -->
   <table border="1">
   {% for month in all_months %}
     <tr><th>Item</th>

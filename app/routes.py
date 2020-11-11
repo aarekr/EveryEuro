@@ -17,20 +17,29 @@ def overview():
 
 @app.route("/app/jan")
 def jan():
-    return render_template("app/jan.html", all_months = Budget.query.all(), 
-			form=BudgetForm())
+    form = BudgetForm(request.form)
+    return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 
 @app.route("/app/jan/create", methods=["POST"])
 def create_jan():
-    salary = int(request.form.get("salary"))
-    rent = -int(request.form.get("rent"))
-    balance = salary+rent
-    print("*****Salary : ", salary)
-    print("*****Rent   : ", rent)
-    print("*****Balance: ", balance)
+#    salary = int(request.form.get("salary"))
+#    rent = -int(request.form.get("rent"))
+#    balance = salary+rent
+    form = BudgetForm(request.form)
+    if not form.validate():
+        return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 
-    month = Budget("Jan", salary, rent, balance)
-    db.session().add(month)
+    jan = Budget(form.month.data)
+    print("***** jan: ", jan)
+    jan.salary = form.salary.data
+    jan.mortgagerent = form.mortgagerent.data
+    jan.balance = (form.salary.data - form.mortgagerent.data)
+
+#    print("*****Salary : ", salary)
+#    print("*****Rent   : ", rent)
+#    print("*****Balance: ", balance)
+
+    db.session().add(jan)
     db.session().commit()
 
     return redirect(url_for("jan"))
