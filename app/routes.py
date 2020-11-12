@@ -29,15 +29,15 @@ def create_jan():
     if not form.validate():
         return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 
-    jan = Budget(form.month.data)
-    print("***** jan: ", jan)
+    jan = Budget(form.month.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
+#    print("***** jan: ", jan)
     jan.salary = form.salary.data
     jan.mortgagerent = form.mortgagerent.data
-    jan.balance = (form.salary.data - form.mortgagerent.data)
+    jan.balance = (jan.salary - jan.mortgagerent)
 
-#    print("*****Salary : ", salary)
-#    print("*****Rent   : ", rent)
-#    print("*****Balance: ", balance)
+    print("*****Salary : ", jan.salary)
+    print("*****Rent   : ", jan.mortgagerent)
+    print("*****Balance: ", jan.balance)
 
     db.session().add(jan)
     db.session().commit()
