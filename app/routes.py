@@ -22,19 +22,20 @@ def jan():
 
 @app.route("/app/jan/create", methods=["POST"])
 def create_jan():
-#    salary = int(request.form.get("salary"))
-#    rent = -int(request.form.get("rent"))
-#    balance = salary+rent
     form = BudgetForm(request.form)
     if not form.validate():
         return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 
-    jan = Budget(form.month.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
-#    print("***** jan: ", jan)
+    jan = Budget(form.month.data, form.name.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
+    jan.month = form.month.data
+    jan.name = "Jan"
     jan.salary = form.salary.data
     jan.mortgagerent = form.mortgagerent.data
     jan.balance = (jan.salary - jan.mortgagerent)
 
+    print("*****jan    : ", jan)
+    print("*****Month  : ", jan.month)
+    print("*****Name   : ", jan.name)
     print("*****Salary : ", jan.salary)
     print("*****Rent   : ", jan.mortgagerent)
     print("*****Balance: ", jan.balance)

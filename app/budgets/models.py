@@ -7,12 +7,14 @@ class Budget(db.Model):
     onupdate=db.func.current_timestamp())
 
     month = db.Column(db.String(144), nullable=False)
+    name = db.Column(db.String(144), nullable=False)
     salary = db.Column(db.Integer, nullable=False)
     mortgagerent = db.Column(db.Integer, nullable=False)
     balance = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, month, salary, mortgagerent, balance):
+    def __init__(self, month, name, salary, mortgagerent, balance):
         self.month = month
+        self.name = name
         self.salary = salary
         self.mortgagerent = mortgagerent
         self.balance = balance

@@ -6,7 +6,6 @@
 new form using BudgetForm
 <form method="POST" action="{{ url_for('create_jan') }}">
   <table>
-    {{ form.month.label }}
     <tr>
       <td>{{ form.salary.label }}</td>
       <td>{{ form.salary }}</td>
@@ -34,7 +33,7 @@ new form using BudgetForm
   {% endif %}
   <br />
   {% for month in all_months %}
-    {{ month.month }} {{ month.salary }} {{ month.mortgagerent }} {{ month.balance }} <br />
+    {{ month.month }} {{ month.name }} {{ month.salary }} {{ month.mortgagerent }} {{ month.balance }} <br />
   {% endfor %}
 
 
