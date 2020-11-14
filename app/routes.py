@@ -23,6 +23,7 @@ def jan():
 @app.route("/app/jan/create", methods=["POST"])
 def create_jan():
     form = BudgetForm(request.form)
+
     if not form.validate():
         return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 

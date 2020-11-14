@@ -3,12 +3,11 @@
 {% block body %}
 <h3>January</h3><br />
 
-new form using BudgetForm
 <form method="POST" action="{{ url_for('create_jan') }}">
   <table>
     <tr>
       <td>{{ form.salary.label }}</td>
-      <td>{{ form.salary }}</td>
+      <td>{{ form.salary }} {% for month in all_months %} {{ month.salary }} {% endfor %}</td>
       <td>
         <ul>{% for error in form.salary.errors %}
             <li>{{ error }}</li>
@@ -44,16 +43,20 @@ new form using BudgetForm
   <table border="1">
   {% for month in all_months %}
     <tr><th>Item</th>
-        <th><center>Amount</center></th></tr>
+        <th><center>Planned</center></th>
+        <th><center>Received/Spent</center></th></tr>
     <tr><td>Salary</td>
-        <td align="right">{{ month.salary }}</td></tr>
+        <td align="right">{{ month.salary }}</td>
+        <td align="right">...</td></tr>
     <tr><td>Mortgage/rent</td>
-        <td align="right">{{ month.mortgagerent }}</td></tr>
+        <td align="right">{{ month.mortgagerent }}</td>
+        <td align="right">...</td></tr>
     <tr><td>Balance</td>
-        <td align="right">{{ month.balance }}</td></tr>
+        <td align="right">{{ month.balance }}</td>
+        <td align="right">...</td></tr>
   {% endfor %}
   </table>
 </form>
 
-<br /><hr /><br />
+<br /><hr />
 {% endblock %}
