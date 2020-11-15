@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
-from app.budgets.models import Budget
+from app.budgets.models import Budget #, month_name_info
 from app.budgets.forms import BudgetForm
 
 @app.route("/")
@@ -23,6 +23,15 @@ def jan():
 @app.route("/app/jan/create", methods=["POST"])
 def create_jan():
     form = BudgetForm(request.form)
+    print("*****Form   : ", form.name)
+
+#    print("*****month name info: ", month_name_info)
+#    print("*****validate month: ", validate_month())
+    all_months = Budget.query.all()
+    print("*****All months: ", all_months)
+    print("*****Budget 1 : ", all_months[0].name)
+    if(all_months[0].name == "Jan"):
+        print("***** Jan on jo syötetty")
 
     if not form.validate():
         return render_template("app/jan.html", all_months = Budget.query.all(), form=form)

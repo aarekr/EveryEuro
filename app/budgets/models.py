@@ -1,4 +1,5 @@
 from app import db
+from sqlalchemy.sql import text
 
 class Budget(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,3 +19,13 @@ class Budget(db.Model):
         self.salary = salary
         self.mortgagerent = mortgagerent
         self.balance = balance
+
+
+    @staticmethod
+    def month_name_info(): # checking if month is already entered
+        stmt = text("SELECT name FROM Budget")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"name":row[0]})
+        return response
