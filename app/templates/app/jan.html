@@ -17,7 +17,7 @@
     </tr>
     <tr>
       <td>{{ form.mortgagerent.label }}</td>
-      <td>{{ form.mortgagerent }}</td>
+      <td>{{ form.mortgagerent }} {% for month in all_months %} {{ month.mortgagerent }} {% endfor %}</td>
       <td>
         <ul>{% for error in form.mortgagerent.errors %}
             <li>{{ error }}</li>

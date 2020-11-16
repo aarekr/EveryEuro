@@ -25,32 +25,30 @@ def create_jan():
     form = BudgetForm(request.form)
     print("*****Form   : ", form.name)
 
-#    print("*****month name info: ", month_name_info)
-#    print("*****validate month: ", validate_month())
     all_months = Budget.query.all()
     print("*****All months: ", all_months)
-    print("*****Budget 1 : ", all_months[0].name)
-    if(all_months[0].name == "Jan"):
+#    print("*****Budget 1 : ", all_months[0].name)
+    if(all_months[0].name == "Jan"): # Jan has to be added somehow
         print("***** Jan on jo syötetty")
+    else:
+        if not form.validate():
+            return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 
-    if not form.validate():
-        return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
+        jan = Budget(form.month.data, form.name.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
+        jan.month = form.month.data
+        jan.name = "Jan"
+        jan.salary = form.salary.data
+        jan.mortgagerent = form.mortgagerent.data
+        jan.balance = (jan.salary - jan.mortgagerent)
 
-    jan = Budget(form.month.data, form.name.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
-    jan.month = form.month.data
-    jan.name = "Jan"
-    jan.salary = form.salary.data
-    jan.mortgagerent = form.mortgagerent.data
-    jan.balance = (jan.salary - jan.mortgagerent)
+        print("*****jan    : ", jan)
+        print("*****Month  : ", jan.month)
+        print("*****Name   : ", jan.name)
+        print("*****Salary : ", jan.salary)
+        print("*****Rent   : ", jan.mortgagerent)
+        print("*****Balance: ", jan.balance)
 
-    print("*****jan    : ", jan)
-    print("*****Month  : ", jan.month)
-    print("*****Name   : ", jan.name)
-    print("*****Salary : ", jan.salary)
-    print("*****Rent   : ", jan.mortgagerent)
-    print("*****Balance: ", jan.balance)
-
-    db.session().add(jan)
-    db.session().commit()
+        db.session().add(jan)
+        db.session().commit()
 
     return redirect(url_for("jan"))
