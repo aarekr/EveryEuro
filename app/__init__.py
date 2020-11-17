@@ -11,4 +11,6 @@ from app import routes # all routes via this file
 
 from app.budgets import models
 
+from app.auth import models
+
 db.create_all()
