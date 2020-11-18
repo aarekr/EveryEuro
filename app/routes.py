@@ -1,7 +1,9 @@
 from flask import render_template, request, redirect, url_for
 from app import app, db
-from app.budgets.models import Budget #, month_name_info
+from app.budgets.models import Budget
 from app.budgets.forms import BudgetForm
+from app.auth.models import User
+from app.auth.forms import LoginForm
 
 @app.route("/")
 def index():
@@ -52,3 +54,22 @@ def create_jan():
         db.session().commit()
 
     return redirect(url_for("jan"))
+
+
+# login / logout
+@app.route("/auth/login", methods = ["GET", "POST"])
+def auth_login():
+    if request.method == "GET":
+        return render_template("auth/loginform.html", form = LoginForm())
+
+    form = LoginForm(request.form)
+    # mahdolliset validoinnit
+
+    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    if not user:
+        return render_template("auth/loginform.html", form = form,
+                               error = "No such username or password")
+
+
+    print("Käyttäjä " + user.name + " tunnistettiin")
+    return redirect(url_for("index"))
