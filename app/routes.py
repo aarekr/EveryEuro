@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from app import app, db
 from app.budgets.models import Budget
 from app.budgets.forms import BudgetForm
@@ -15,10 +15,12 @@ def app_page():
     return render_template("app/app_page.html")
 
 @app.route("/app/overview")
+@login_required
 def overview():
     return render_template("app/overview.html", all_months = Budget.query.all())
 
 @app.route("/app/jan")
+@login_required
 def jan():
     form = BudgetForm(request.form)
     return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
@@ -30,23 +32,29 @@ def create_jan():
 
     all_months = Budget.query.all()
     print("*****All months: ", all_months)
+#    if(3>4)
+    if(all_months[0].name == "Jan"):
+        print("***** Jan on jo syötetty")
+    else:
+        if not form.validate():
+            return render_template("app/jan.html", all_months = Budget.query.all(), form=form)
 
-    jan = Budget(form.month.data, form.name.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
-    jan.month = form.month.data
-    jan.name = "Jan"
-    jan.salary = form.salary.data
-    jan.mortgagerent = form.mortgagerent.data
-    jan.balance = (jan.salary - jan.mortgagerent)
+        jan = Budget(form.month.data, form.name.data, form.salary.data, form.mortgagerent.data, (form.salary.data-form.mortgagerent.data))
+        jan.month = form.month.data
+        jan.name = "Jan"
+        jan.salary = form.salary.data
+        jan.mortgagerent = form.mortgagerent.data
+        jan.balance = (jan.salary - jan.mortgagerent)
 
-    print("*****jan    : ", jan)
-    print("*****Month  : ", jan.month)
-    print("*****Name   : ", jan.name)
-    print("*****Salary : ", jan.salary)
-    print("*****Rent   : ", jan.mortgagerent)
-    print("*****Balance: ", jan.balance)
+        print("*****jan    : ", jan)
+        print("*****Month  : ", jan.month)
+        print("*****Name   : ", jan.name)
+        print("*****Salary : ", jan.salary)
+        print("*****Rent   : ", jan.mortgagerent)
+        print("*****Balance: ", jan.balance)
 
-    db.session().add(jan)
-    db.session().commit()
+        db.session().add(jan)
+        db.session().commit()
 
     return redirect(url_for("jan"))
 
@@ -58,7 +66,6 @@ def auth_login():
         return render_template("auth/loginform.html", form = LoginForm())
 
     form = LoginForm(request.form)
-
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form,
