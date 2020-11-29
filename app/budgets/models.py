@@ -13,13 +13,14 @@ class Budget(db.Model):
     mortgagerent = db.Column(db.Integer, nullable=False)
     balance = db.Column(db.Integer, nullable=False)
 
+    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+
     def __init__(self, month, name, salary, mortgagerent, balance):
         self.month = month
         self.name = name
         self.salary = salary
         self.mortgagerent = mortgagerent
         self.balance = balance
-
 
     @staticmethod
     def month_name_info(): # checking if month is already entered

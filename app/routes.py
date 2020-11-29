@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
 from app.budgets.models import Budget
 from app.budgets.forms import BudgetForm
@@ -32,8 +32,8 @@ def create_jan():
 
     all_months = Budget.query.all()
     print("*****All months: ", all_months)
-#    if(3>4)
-    if(all_months[0].name == "Jan"):
+    if(3>4):
+#    if(all_months[0].name == "Jan"):
         print("***** Jan on jo syötetty")
     else:
         if not form.validate():
@@ -45,6 +45,7 @@ def create_jan():
         jan.salary = form.salary.data
         jan.mortgagerent = form.mortgagerent.data
         jan.balance = (jan.salary - jan.mortgagerent)
+        jan.account_id = current_user.id
 
         print("*****jan    : ", jan)
         print("*****Month  : ", jan.month)
