@@ -7,7 +7,7 @@ class BudgetForm(FlaskForm):
     name = StringField("Month")
     salary = IntegerField("Salary", [validators.DataRequired(), validators.NumberRange(min=500, max=10000)])
     mortgagerent = IntegerField("Mortgage/rent", [validators.DataRequired(), validators.NumberRange(min=100, max=2000)])
-    balance = IntegerField("Balance")
+    left_to_budget = IntegerField("Left to budget")
 
     def validate_month(self, name):
         month = Budget.query.filter_by(name=name.data).first()
