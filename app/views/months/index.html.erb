@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Months</h1>
+
+<div id="months">
+  <% @months.each do |month| %>
+    <%= render month %>
+    <p>
+      <%= link_to "Show this month", month %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New month", new_month_path %>
