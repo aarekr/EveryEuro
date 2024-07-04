@@ -1,3 +1,5 @@
 # EveryEuro
 
-EveryEuro Budgeting (Ruby on Rails)
+EveryEuro Budgeting Application
+
+Ruby on Rails
