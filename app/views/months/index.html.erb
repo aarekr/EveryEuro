@@ -1,7 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>EveryEuro</h1>
-<hr>
+<div class="navbar">
+  <div id="months">
+    <% @months.each do |month| %>
+      <%= link_to "#{month.name}", month %>
+    <% end %>
+  </div>
+</div>
 
 <div id="months">
   <% @months.each do |month| %>
