@@ -1,5 +1,5 @@
 class MonthsController < ApplicationController
-  before_action :set_month, only: %i[ show edit update destroy ]
+  before_action :set_month, only: %i[show edit update destroy]
 
   # GET /months or /months.json
   def index
@@ -58,13 +58,14 @@ class MonthsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_month
-      @month = Month.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def month_params
-      params.require(:month).permit(:name, :year, :income, :rent, :food, :saving)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_month
+    @month = Month.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def month_params
+    params.require(:month).permit(:name, :year, :income, :rent, :food, :saving)
+  end
 end
