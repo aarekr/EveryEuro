@@ -12,6 +12,9 @@
 
   <body>
     <h1>EveryEuro</h1>
+    <% if current_user %>
+      <p><%= current_user.username %> signed in</p>
+    <% end %>
     <hr>
     <%= yield %>
   </body>
