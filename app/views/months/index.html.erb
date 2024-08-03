@@ -8,13 +8,41 @@
   </div>
 </div>
 
+<br><br>
 <div id="months">
-  <% @months.each do |month| %>
-    <%= render month %>
-    <p>
-      <%= link_to "Show #{month.name}", month %>
-    </p>
-  <% end %>
+  <table border="1">
+    <tr>
+      <td width="70"><b> Item </b></td>
+      <% @months.each do | month | %>
+        <td width="75" align="center"> <b> <%= "#{month.name}" %> </b> </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><b> Income </b></td>
+      <% @months.each do | month | %>
+        <td align="right"> <%= "#{month.income}" %> </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><b> Rent </b></td>
+      <% @months.each do | month | %>
+        <td align="right"> <%= "#{month.rent}" %> </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><b> Food </b></td>
+      <% @months.each do | month | %>
+        <td align="right"> <%= "#{month.food}" %> </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><b> Saving </b></td>
+      <% @months.each do | month | %>
+        <td align="right"> <%= "#{month.saving}" %> </td>
+      <% end %>
+    </tr>
+  </table>
 </div>
 
-<%= link_to "New month", new_month_path %>
+<br>
+<%= link_to "Create a new month", new_month_path %>

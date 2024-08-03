@@ -12,14 +12,19 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <table>
+      <tr>
+        <td><%= form.label :name %></td>
+        <td><%= form.text_field :name %></td>
+      </tr>
+      <tr>
+        <td><%= form.label :year %></td>
+        <td><%= form.number_field :year %></td>
+      </tr>
+    </table>
   </div>
 
-  <div>
-    <%= form.label :year, style: "display: block" %>
-    <%= form.number_field :year %>
-  </div>
+  <p>Enter the estimated budgeting items for this month.</p>
 
   <div>
     <%= form.label :income, style: "display: block" %>
@@ -41,6 +46,7 @@
     <%= form.number_field :saving %>
   </div>
 
+  <br>
   <div>
     <%= form.submit %>
   </div>
