@@ -14,7 +14,14 @@
  *= require_self
  */
 
-.navbar {
+/*.navibar {
+    padding: 10px;
+    background: #efefef;
+}
+
+.monthbar {
     padding: 10px;
     background: #979090;
-}
+}*/
+
+@import 'bootstrap';

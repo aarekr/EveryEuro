@@ -1,6 +1,6 @@
 <p style="color: green"><%= notice %></p>
 
-<div class="navbar">
+<div class="monthbar">
   <div id="months">
     <% @months.each do |month| %>
       <%= link_to "#{month.name}", month %>
@@ -10,7 +10,7 @@
 
 <br><br>
 <div id="months">
-  <table border="1">
+  <table class="table-hover" border="1">
     <tr>
       <td width="70"><b> Item </b></td>
       <% @months.each do | month | %>
