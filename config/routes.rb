@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :months
+  resources :budgets
 
   root 'months#index'
 

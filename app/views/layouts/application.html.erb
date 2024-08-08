@@ -24,6 +24,9 @@
             <li class="nav-item">
               <%= link_to 'Months', months_path , { class: "nav-link" } %>
             </li>
+            <li class="nav-item">
+              <%= link_to 'Budget', budgets_path , { class: "nav-link" } %>
+            </li>
             <% if current_user %>
               <li class="nav-item">
                 <%= link_to "#{current_user.username}", current_user , { class: "nav-link" } %>
